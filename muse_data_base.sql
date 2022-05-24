@@ -6,12 +6,18 @@ CREATE TABLE IF NOT EXISTS track (id serial PRIMARY KEY, track_name varchar(50) 
 
 track_length integer NOT NULL);
 
-CREATE TABLE IF NOT EXISTS perf_album (perf_id integer REFERENCES performer(id), album_id integer REFERENCES album(id));
-
 CREATE TABLE IF NOT EXISTS genre (id serial PRIMARY KEY, genre_name varchar(50) NOT NULL);
-
-CREATE TABLE IF NOT EXISTS perf_genre (perf_id integer REFERENCES performer(id), genre_id integer REFERENCES genre(id));
 
 CREATE TABLE IF NOT EXISTS collection (id serial PRIMARY KEY, coll_name varchar(50) NOT NULL,rel_date integer NOT NULL);
 
-CREATE TABLE IF NOT EXISTS track_collection (coll_id integer REFERENCES collection(id), track_id integer REFERENCES track(id));
+CREATE TABLE IF NOT EXISTS perf_album (PRIMARY KEY(perf_id, album_id),
+
+perf_id integer REFERENCES performer(id), album_id integer REFERENCES album(id));
+
+CREATE TABLE IF NOT EXISTS perf_genre (PRIMARY KEY(perf_id, genre_id),
+
+perf_id integer REFERENCES performer(id), genre_id integer REFERENCES genre(id));
+
+CREATE TABLE IF NOT EXISTS track_collection (PRIMARY KEY(coll_id, track_id),
+
+coll_id integer REFERENCES collection(id), track_id integer REFERENCES track(id));
