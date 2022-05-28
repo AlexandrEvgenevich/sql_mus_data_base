@@ -21,7 +21,7 @@ connection.execute("""INSERT INTO genre(id, genre_name) VALUES(5, 'super_death_m
 connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(1, 'rats', '2018')""")
 connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(2, 'bats', '2010')""")
 connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(3, 'cats', '2011')""")
-connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(4, 'bogs', '2000')""")
+connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(4, 'dogs', '2000')""")
 connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(5, 'cows', '2051')""")
 connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(6, 'foxes', '2018')""")
 connection.execute("""INSERT INTO album(id, album_name, rel_date) VALUES(7, 'owls', '2030')""")
