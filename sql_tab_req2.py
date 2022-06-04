@@ -34,9 +34,16 @@ print(x)
 x = connection.execute("""
 SELECT perf_name
 FROM performer
-JOIN perf_album ON performer.id = perf_album.id
-JOIN album ON performer.id = album.id
-WHERE album.rel_date != 2018""").fetchall()
+JOIN perf_album ON performer.id = perf_album.perf_id
+JOIN album ON perf_album.album_id = album.id
+WHERE rel_date != 2018 AND perf_name NOT IN (SELECT perf_name
+FROM performer
+JOIN perf_album ON performer.id = perf_album.perf_id
+JOIN album ON perf_album.album_id = album.id
+GROUP BY perf_name
+HAVING COUNT(rel_date) > 1
+LIMIT 1)
+""").fetchall()
 
 print(x)
 
@@ -90,8 +97,7 @@ FROM album
 JOIN track ON album.id = track.album_id
 GROUP BY album_name
 HAVING COUNT(track.id) = (
-SELECT 
-COUNT(album_name)
+SELECT COUNT(album_name)
 FROM album
 JOIN track ON album.id = track.album_id
 GROUP BY album_name
