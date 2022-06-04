@@ -36,8 +36,7 @@ SELECT perf_name
 FROM performer
 JOIN perf_album ON performer.id = perf_album.id
 JOIN album ON performer.id = album.id
-WHERE album.rel_date != 2018
-GROUP BY performer.perf_name""").fetchall()
+WHERE album.rel_date != 2018""").fetchall()
 
 print(x)
 
@@ -49,8 +48,7 @@ JOIN track ON track_collection.track_id = track.id
 JOIN album ON track.album_id = album.id
 JOIN perf_album ON album.id = perf_album.album_id
 JOIN performer ON perf_album.perf_id = performer.id
-WHERE perf_name = 'bat'
-GROUP BY coll_name""").fetchall()
+WHERE perf_name = 'bat'""").fetchall()
 
 print(x)
 
@@ -87,10 +85,17 @@ SELECT MIN(track_length) FROM track)
 print(x)
 
 x = connection.execute("""
-SELECT album_name, COUNT(album_id)
+SELECT album_name
 FROM album
 JOIN track ON album.id = track.album_id
-GROUP BY album_name, track.album_id
+GROUP BY album_name
+HAVING COUNT(track.id) = (
+SELECT 
+COUNT(album_name)
+FROM album
+JOIN track ON album.id = track.album_id
+GROUP BY album_name
+LIMIT 1)
 """).fetchall()
 
 print(x)
